@@ -9,5 +9,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /app
 COPY . .
 RUN composer install
-copy ./run.sh /tmp    
+copy ./run.sh /tmp
+RUN chmod 777 /tmp/run.sh 
 ENTRYPOINT ["/tmp/run.sh"]
