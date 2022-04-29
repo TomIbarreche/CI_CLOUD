@@ -6,9 +6,11 @@ services:
 
 before_install:
   - docker build -t ibarreche/cloud-back-test -f ./app/back/Dockerfile.test ./app/back
+  - docker build -t ibarreche/cloud-front-test -f ./app/front/Dockerfile.test ./app/front
 
 script:
   - docker run -e CI=true ibarreche/cloud-back-test ./vendor/bin/phpunit
+  - docker run -e CI=true ibarreche/cloud-front-test npm run test -- --coverage
 
 after_success:
   - docker build -t ibarreche/cloud-frontend-ci ./app/client
