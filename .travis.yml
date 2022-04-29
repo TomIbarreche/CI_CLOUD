@@ -5,7 +5,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t ibarreche/cloud-back-test -f Dockerfile.test ./app/back
+  - docker build -t ibarreche/cloud-back-test -f ./app/backDockerfile.test ./app/back
 
 script:
   - docker run -e CI=true ibarreche/cloud-back-test ./vendor/bin/phpunit
