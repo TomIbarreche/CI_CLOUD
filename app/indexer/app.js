@@ -4,13 +4,13 @@ const { Client } = require('@elastic/elasticsearch');
 
 
 
-const amqpUri = process.env['AMQP_URI']
+/*const amqpUri = process.env['AMQP_URI']
+console.log("MYURI", amqpUri)
 if (amqpUri == null)
-    throw Error('Missing AMQP_URI environment variable.');
-const esUri = process.env['ELASTICSEARCH_URI']
-if (amqpUri == null)
+    throw Error('Missing AMQP_URI environment variable.');*/
+const esUri = 'http://elasticsearch:9200' //process.env['ELASTICSEARCH_URI']
+if (esUri == null)
     throw Error('Missing ELASTICSEARCH_URI environment variable.');
-
 
 
 
@@ -20,7 +20,6 @@ const esClient = new Client({
     requestTimeout: 5000,
     sniffOnStart: false,
 });
-
 
 
 
@@ -64,14 +63,17 @@ const consumeDeleted = async (channel, msg) => {
 
 
 
+const amqpUrl = process.env.AMQP_URL || 'amqp://localhost:5672';
 
 
-amqp.connect(amqpUri, function(error0, connection) {
+amqp.connect(amqpUrl, function(error0, connection) {
     if (error0)
         throw error0;
 
     connection.createChannel(function(error1, channel) {
         if (error1) {
+            console.log("Error1", error1)
+            
             throw error1;
         }
 

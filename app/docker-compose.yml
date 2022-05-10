@@ -10,6 +10,8 @@ services:
       - api
     ports:
       - '4000:80'
+    networks:
+        - rabbitmq_nodejs
   front:
     build:
       dockerfile: Dockerfile
@@ -19,6 +21,8 @@ services:
     volumes:
       - /app/node_modules
       - ./front:/app
+    networks:
+        - rabbitmq_nodejs
   api:
     build:
       dockerfile: Dockerfile
@@ -26,11 +30,19 @@ services:
     # image: ibarreche/cloud-test
     # ports:
     #   - '8000:8000'
+    environment:
+      RABBIT_HOSTNAME: rabbitmq
+      ELASTICSEARCH_HOST: elasticsearch
+    restart: on-failure
     depends_on:
       - laravel-db
+      - rabbitmq
+      - elasticsearch
     volumes:    
       - /var/www/html/vendor
       - ./back:/var/www/html:cached
+    networks:
+        - rabbitmq_nodejs
 
   laravel-db:
     image: mysql:5.6
@@ -45,6 +57,68 @@ services:
         interval: 30s
         timeout: 10s
         retries: 5
+    networks:
+        - rabbitmq_nodejs
+  
+  rabbitmq:
+    image: rabbitmq:3.8-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - rabbitmq_nodejs
+
+  indexer:
+    build:
+      context: ./indexer
+      dockerfile: Dockerfile
+    volumes:
+      - ./indexer:/src
+    depends_on:
+      - "rabbitmq"
+      - "elasticsearch"
+    command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- node app.js'
+    environment:
+      AMQP_URL: amqp://guest:guest@rabbitmq:5672
+      ES_HOST: elasticsearch
+      ELASTICSEARCH_URI: http://127.0.0.1:9200
+    networks:
+      - rabbitmq_nodejs
+
+  elasticsearch:
+    container_name: 'elasticsearch'
+    image: elasticsearch:7.17.3
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    environment:
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+    ports:
+      - 9300:9300
+      - 9200:9200
+    networks:
+      - rabbitmq_nodejs
+
+  reporter:
+    build:
+      context: ./reporting
+      dockerfile: Dockerfile
+    depends_on:
+      - "laravel-db"
+    ports:
+      - 8080:8080
+    networks:
+      - rabbitmq_nodejs
+
+networks:
+  rabbitmq_nodejs:
+    driver: bridge
 
 volumes:
   laravel-db:
+  esdata:

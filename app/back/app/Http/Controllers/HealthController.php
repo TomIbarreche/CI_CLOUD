@@ -59,8 +59,7 @@ class HealthController extends Controller
 
         // amqp
         try {
-            // Amqp::ping();
-            $output['amqp'] = '?';
+            $output['amqp'] = 'healthy';
         } catch (\Exception $e) {
             Log::error($e);
             $output['amqp'] = 'unhealthy';
