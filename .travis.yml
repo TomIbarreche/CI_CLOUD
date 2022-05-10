@@ -5,16 +5,16 @@ services:
   - docker
 
 before_install:
-  #- docker build -t ibarreche/cloud-back-test -f ./app/back/Dockerfile.test ./app/back
-  - docker build -t ibarreche/cloud-front-test -f ./app/front/Dockerfile.test ./app/front
+  - docker build -t ibarreche/cloud-back-test -f ./app/back/Dockerfile.test ./app/back
+  #- docker build -t ibarreche/cloud-front-test -f ./app/front/Dockerfile.test ./app/front
 
 script:
-  #- docker run -e CI=true ibarreche/cloud-back-test ./vendor/bin/phpunit
-  - docker run -e CI=true ibarreche/cloud-front-test npm run test
+  - docker run -e CI=true ibarreche/cloud-back-test ./vendor/bin/phpunit
+  #- docker run -e CI=true ibarreche/cloud-front-test npm run test
 
 after_success:
-  - docker build -t ibarreche/cloud-frontend-ci ./app/front
-  #- docker build -t ibarreche/cloud-back-ci ./app/back
+  #- docker build -t ibarreche/cloud-frontend-ci ./app/front
+  - docker build -t ibarreche/cloud-back-ci ./app/back
   # Log in to the docker CLI
   #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
