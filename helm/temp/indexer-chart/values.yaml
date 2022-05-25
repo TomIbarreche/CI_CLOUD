@@ -1,0 +1,22 @@
+indexer_deployment:
+  image: "ibarreche/cloud-indexer-ci"
+  tag: "latest"
+  name: "indexer"
+  replicasNb: 1
+  containerPort: 3000
+
+indexer_service:
+  name: "indexer-cluster-ip-service"
+  selector: "indexer"
+  port: 3000
+  targetPort: 3000
+
+indexer_configMap:
+  name: "indexer-configmap"
+  rabbitmq_url: "amqp://guest:guest@rabbitmq-cluster-ip-service:5672"
+  rabbitmq_user: "guest"
+  rabbitmq_host: "rabbitmq-cluster-ip-service"
+  rabbitmq_vhost: "/"
+
+indexer_secret:
+  name: "indexer-secret"

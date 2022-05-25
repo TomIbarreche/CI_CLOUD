@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.reporting_service.name}}
+spec:
+  type: ClusterIP
+  selector:
+    component: {{ .Values.reporting_service.selector}}
+  ports:
+    - port: {{ .Values.reporting_service.port}}
+      targetPort: {{ .Values.reporting_service.targetPort}}
+  

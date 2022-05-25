@@ -1,0 +1,10 @@
+kind: ConfigMap 
+apiVersion: v1 
+metadata:
+  name: elasticsearch-configmap 
+data:
+  elasticsearch_host: elasticsearch-cluster-ip-service
+  elasticsearch_url: http://elasticsearch-cluster-ip-service:9200
+  elasticsearch_cluster_name: elasticsearch
+  elasticsearch_discovery_type: single-node
+  elasticsearch_es_java_opts: -Xms512m -Xmx512m

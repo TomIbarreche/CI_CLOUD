@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indexer
+spec:
+  selector:
+    matchLabels:
+      app: indexer
+  strategy: 
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: indexer
+    spec:
+      containers:
+        - name: indexer
+          image: ibarreche/cloud-indexer-ci
+          ports:
+            - containerPort: 3000
+              name: indexer
+          env:
+            - name: AMQP_URL
+              value: amqp://guest:guest@10.104.185.89:5672
+            - name: RABBITMQ_USER
+              value: 'guest'
+            - name: RABBITMQ_PASSWORD
+              value: 'guest'

@@ -10,4 +10,6 @@ WORKDIR /app
 COPY . .
 RUN composer install
 copy ./run.sh /tmp    
+RUN chmod +x /tmp/run.sh
+
 ENTRYPOINT ["/tmp/run.sh"]

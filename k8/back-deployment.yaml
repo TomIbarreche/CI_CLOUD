@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      component: back
+  template:
+    metadata:
+      labels:
+        component: back
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: back
+          image: ibarreche/cloud-back-ci
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-configmap
+                  key: database
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-configmap
+                  key: database_host
+            - name: DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-configmap
+                  key: database_username
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: mysql-root-password
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: mysql-password
+            - name: DB_PORT
+              value: '3306'
+            #RABBITMQ
+            - name: RABBITMQ_PORT
+              value: '5672'
+            - name: RABBITMQ_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: indexer-configmap
+                  key: rabbitmq_user
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: indexer-secret
+                  key: rabbitmq_password
+            - name: RABBITMQ_VHOST
+              valueFrom:
+                configMapKeyRef:
+                  name: indexer-configmap
+                  key: rabbitmq_vhost
+            - name: RABBITMQ_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: indexer-configmap
+                  key: rabbitmq_host
+            #ELASTICSEARCH
+            - name: ELASTICSEARCH_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: elasticsearch-configmap
+                  key: elasticsearch_host

@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+        - pathType: Prefix
+          path: "/appi/"
+          backend:
+            service:
+              name: back-cluster-ip-service
+              port:
+                number: 8000
+        - pathType: Prefix
+          path: "/"
+          backend:
+            service:
+              name: front-cluster-ip-service
+              port:
+                number: 4200

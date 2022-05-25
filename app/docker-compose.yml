@@ -16,8 +16,8 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./front
-    # ports:
-    #   - '4200:4200'
+    ports:
+      - '4200:4200'
     volumes:
       - /app/node_modules
       - ./front:/app
@@ -28,8 +28,8 @@ services:
       dockerfile: Dockerfile
       context: ./back
     # image: ibarreche/cloud-test
-    # ports:
-    #   - '8000:8000'
+    ports:
+      - '8000:8000'
     environment:
       RABBIT_HOSTNAME: rabbitmq
       ELASTICSEARCH_HOST: elasticsearch
@@ -81,6 +81,8 @@ services:
     depends_on:
       - "rabbitmq"
       - "elasticsearch"
+    ports:
+      - 3000:3000
     command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- node app.js'
     environment:
       AMQP_URL: amqp://guest:guest@rabbitmq:5672

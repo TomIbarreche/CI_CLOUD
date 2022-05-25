@@ -1,0 +1,20 @@
+back_deployment:
+  image: "ibarreche/cloud-back-ci"
+  tag: "latest"
+  name: "back"
+  replicasNb: 2
+  restartPolicy: "Always"
+  containerPort: 8000
+
+back_service:
+  name: "back-cluster-ip-service"
+  selector: "back"
+  port: 8000
+  targetPort: 8000
+
+back_configMap:
+  name: "indexer-configmap"
+  rabbitmq_url: "amqp://guest:guest@rabbitmq-cluster-ip-service:5672"
+  rabbitmq_user: "guest"
+  rabbitmq_host: "rabbitmq-cluster-ip-service"
+  rabbitmq_vhost: "/"

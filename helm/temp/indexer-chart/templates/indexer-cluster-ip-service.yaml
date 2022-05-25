@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.indexer_service.name}}
+spec:
+  type: ClusterIP
+  selector:
+    component: {{ .Values.indexer_service.selector}}
+  ports:
+    - port: {{ .Values.indexer_service.port}}
+      targetPort: {{ .Values.indexer_service.targetPort}}

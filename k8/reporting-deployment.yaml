@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reporting-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: reporting
+  template:
+    metadata:
+      labels:
+        component: reporting
+    spec:
+      containers:
+        - name: reporting
+          image: ibarreche/cloud-reporting-ci
+          ports:
+            - containerPort: 8080

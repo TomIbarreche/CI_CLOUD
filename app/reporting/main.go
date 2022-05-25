@@ -42,7 +42,7 @@ func sendMessageToTeams(webhookURL string, productCount int) error {
 
 func main() {
 	os.Setenv("WEBHOOK_URL", "https://outlook.office.com/webhookb2/6d742bc5-60f4-4f1d-ae3a-c3ad31391d4f@901cb4ca-b862-4029-9306-e5cd0f6d9f86/IncomingWebhook/f8b6dfdf1dc7460ca74a4076b400913b/85354c20-2276-43f6-ab80-15a8b176d0df")
-	os.Setenv("DB_URI", "laravel:laravel@tcp(laravel-db:3306)/laravel")
+	os.Setenv("DB_URI", "root:laravel@tcp(mysql-cluster-ip-service:3306)/laravel")
 	dbURI := os.Getenv("DB_URI")
 	webhookURL := os.Getenv("WEBHOOK_URL")
 

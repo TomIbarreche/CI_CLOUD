@@ -8,7 +8,7 @@ const { Client } = require('@elastic/elasticsearch');
 console.log("MYURI", amqpUri)
 if (amqpUri == null)
     throw Error('Missing AMQP_URI environment variable.');*/
-const esUri = 'http://elasticsearch:9200' //process.env['ELASTICSEARCH_URI']
+const esUri =  process.env['ELASTICSEARCH_URI'] || 'http://elasticsearch:9200';
 if (esUri == null)
     throw Error('Missing ELASTICSEARCH_URI environment variable.');
 
@@ -76,7 +76,6 @@ amqp.connect(amqpUrl, function(error0, connection) {
             
             throw error1;
         }
-
         const exchangeName = 'product.event';
         const queueName1 = 'create';
         const routingKey1 = 'create';
