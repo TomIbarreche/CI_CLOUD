@@ -1,0 +1,9 @@
+kind: ConfigMap 
+apiVersion: v1 
+metadata:
+  name: {{ .Values.rabbitmq_configMap.name }} 
+data:
+  rabbitmq_url: {{ .Values.rabbitmq_configMap.rabbitmq_url }}
+  rabbitmq_user: {{ .Values.rabbitmq_configMap.rabbitmq_user }}
+  rabbitmq_host: {{ .Values.rabbitmq_configMap.rabbitmq_host }}
+  rabbitmq_vhost: {{ .Values.rabbitmq_configMap.rabbitmq_vhost }}

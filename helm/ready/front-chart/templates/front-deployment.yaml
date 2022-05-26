@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.front_deployment.name }}
+spec:
+  replicas: {{ .Values.front_deployment.replicasNb }}
+  selector:
+    matchLabels:
+      component: {{ .Values.front_deployment.name }}
+  template:
+    metadata:
+      labels:
+        component: {{ .Values.front_deployment.name }}
+    spec:
+      restartPolicy: {{ .Values.front_deployment.restartPolicy }}
+      containers:
+        - name: {{ .Values.front_deployment.name }}
+          image: {{ .Values.front_deployment.image }}:{{ .Values.front_deployment.tag }}
+          ports:
+            - containerPort: {{ .Values.front_deployment.containerPort }}

@@ -1,0 +1,12 @@
+reporting_deployment:
+  image: "ibarreche/cloud-reporting-ci"
+  tag: "latest"
+  name: "reporting"
+  replicasNb: 1
+  containerPort: 8080
+
+reporting_service:
+  name: "reporting-cluster-ip-service"
+  selector: "reporting"
+  port: 8080
+  targetPort: 8080

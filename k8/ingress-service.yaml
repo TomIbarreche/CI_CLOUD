@@ -9,7 +9,7 @@ spec:
     - http:
         paths:
         - pathType: Prefix
-          path: "/appi/"
+          path: "/api/"
           backend:
             service:
               name: back-cluster-ip-service

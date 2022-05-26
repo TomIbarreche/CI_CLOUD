@@ -1,16 +1,15 @@
-back_deployment:
-  image: "ibarreche/cloud-back-ci"
+indexer_deployment:
+  image: "ibarreche/cloud-indexer-ci"
   tag: "latest"
-  name: "back"
-  replicasNb: 2
-  restartPolicy: "Always"
-  containerPort: 8000
+  name: "indexer"
+  replicasNb: 1
+  containerPort: 3000
 
-back_service:
-  name: "back-cluster-ip-service"
-  selector: "back"
-  port: 8000
-  targetPort: 8000
+indexer_service:
+  name: "indexer-cluster-ip-service"
+  selector: "indexer"
+  port: 3000
+  targetPort: 3000
 
 rabbitmq_configMap:
   name: "rabbitmq-configmap"
@@ -21,16 +20,6 @@ rabbitmq_configMap:
 
 rabbitmq_secret:
   name: "rabbitmq-secret"
-
-mysql_configMap:
-  name: "mysql-configmap"
-  database: "laravel"
-  database_host: "mysql"
-  database_username: "root"
-  secret: "mysql-secret"
-
-mysql_secret:
-  name: "mysql-secret"
 
 elasticsearch_configMap:
   name: "elasticsearch-configmap"

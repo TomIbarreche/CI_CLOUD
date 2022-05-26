@@ -1,0 +1,10 @@
+kind: ConfigMap 
+apiVersion: v1 
+metadata:
+  name: {{ .Values.elasticsearch_configMap.name }} 
+data:
+  elasticsearch_host: {{ .Values.elasticsearch_configMap.elasticsearch_host }}
+  elasticsearch_url: {{ .Values.elasticsearch_configMap.elasticsearch_url }}
+  elasticsearch_cluster_name: {{ .Values.elasticsearch_configMap.elasticsearch_cluster_name }}
+  elasticsearch_discovery_type: {{ .Values.elasticsearch_configMap.elasticsearch_discovery_type }}
+  elasticsearch_es_java_opts: {{ .Values.elasticsearch_configMap.elasticsearch_es_java_opts }}

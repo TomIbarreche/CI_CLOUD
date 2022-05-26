@@ -1,0 +1,13 @@
+front_deployment:
+  image: "ibarreche/cloud-front-ci"
+  tag: "latest"
+  name: "front"
+  replicasNb: 1
+  restartPolicy: "Always"
+  containerPort: 4200
+
+front_service:
+  name: "front-cluster-ip-service"
+  selector: "front"
+  port: 4200
+  targetPort: 4200

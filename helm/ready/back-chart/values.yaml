@@ -39,3 +39,5 @@ elasticsearch_configMap:
   elasticsearch_cluster_name: "elasticsearch"
   elasticsearch_discovery_type: "single-node"
   elasticsearch_es_java_opts: "-Xms512m -Xmx512m"
+
+

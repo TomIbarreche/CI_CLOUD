@@ -1,0 +1,18 @@
+elasticsearch_service:
+  name: "elasticsearch-cluster-ip-service"
+  selector: "elasticsearch"
+  port: 9200
+  targetPort: 9200
+
+elasticsearch_configMap:
+  name: "elasticsearch-configmap"
+  elasticsearch_host: "elasticsearch-cluster-ip-service"
+  elasticsearch_url: "http://elasticsearch-cluster-ip-service:9200"
+  elasticsearch_cluster_name: "elasticsearch"
+  elasticsearch_discovery_type: "single-node"
+  elasticsearch_es_java_opts: "-Xms512m -Xmx512m"
+
+elasticsearch_deployment:
+  name: "elasticsearch"
+  containerPortHttp: 9200
+  containerPortTcp: 9300

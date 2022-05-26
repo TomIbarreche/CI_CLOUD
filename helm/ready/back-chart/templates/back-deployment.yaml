@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.back_deployment.name }}
+spec:
+  replicas: {{ .Values.back_deployment.replicasNb }}
+  selector:
+    matchLabels:
+      component: {{ .Values.back_deployment.name }}
+  template:
+    metadata:
+      labels:
+        component: {{ .Values.back_deployment.name }}
+    spec:
+      restartPolicy: {{ .Values.back_deployment.restartPolicy }}
+      containers:
+        - name: {{ .Values.back_deployment.name }}
+          image: {{ .Values.back_deployment.image}}:{{ .Values.back_deployment.tag}}
+          ports:
+            - containerPort: {{ .Values.back_deployment.containerPort }}
+          env:
+            - name: DB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.mysql_configMap.name }}
+                  key: database
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.mysql_configMap.name }}
+                  key: database_host
+            - name: DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.mysql_configMap.name }}
+                  key: database_username
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mysql_configMap.secret }}
+                  key: mysql-root-password
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mysql_configMap.secret }}
+                  key: mysql-password
+            - name: DB_PORT
+              value: '3306'
+            #RABBITMQ
+            - name: RABBITMQ_PORT
+              value: '5672'
+            - name: RABBITMQ_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.rabbitmq_configMap.name }}
+                  key: rabbitmq_user
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.rabbitmq_secret.name }}
+                  key: rabbitmq_password
+            - name: RABBITMQ_VHOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.rabbitmq_configMap.name }}
+                  key: rabbitmq_vhost
+            - name: RABBITMQ_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.rabbitmq_configMap.name }}
+                  key: rabbitmq_host
+            #ELASTICSEARCH
+            - name: ELASTICSEARCH_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.elasticsearch_configMap.name }}
+                  key: elasticsearch_host

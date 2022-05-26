@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.indexer_deployment.name}}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.indexer_deployment.name}}
+  strategy: 
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.indexer_deployment.name}}
+    spec:
+      containers:
+        - name: {{ .Values.indexer_deployment.name}}
+          image: {{ .Values.indexer_deployment.image}}:{{ .Values.indexer_deployment.tag}}
+          ports:
+            - containerPort: {{ .Values.indexer_deployment.containerPort}}
+              name: {{ .Values.indexer_deployment.name}}
+          env:
+            - name: AMQP_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.rabbitmq_configMap.name}}
+                  key: rabbitmq_url
+            - name: RABBITMQ_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.rabbitmq_configMap.name}}
+                  key: rabbitmq_user
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.rabbitmq_secret.name}}
+                  key: rabbitmq_password
+            - name: ELASTICSEARCH_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.elasticsearch_configMap.name}}
+                  key: elasticsearch_url
