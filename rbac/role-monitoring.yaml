@@ -1,0 +1,19 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: monitoring
+  name: monitor-pods
+rules:
+- apiGroups: [""]
+  resources: ["pods", "pods/exec", "pods/portforward", "services", "pods/log", "secrets", 'configmaps']
+  verbs: ["get", "watch", "list", "create"]
+- apiGroups: ["apps"]
+  resources: ["deployments","statefulsets"]
+  verbs: ["get", "watch", "list", "create"]
+- apiGroups: ["apiextensions.k8s.io"]
+  resources: ["customresourcedefinitions"]
+  verbs: ["get", "watch", "list", "create"]
+- apiGroups: ["policy"]
+  resources: ["podsecuritypolicies"]
+  verbs: ["get", "watch", "list", "create"]
+  
