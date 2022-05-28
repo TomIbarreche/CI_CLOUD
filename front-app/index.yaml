@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  front-chart:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-05-28T16:56:52.8528964+02:00"
+    description: A Hellm chart utilisé pour déployer l'application angular
+    digest: 70aa8d9969e2014cb8342b4b3261fa9f6bdd4438527ca2962777a0486aaf16e5
+    name: front-chart
+    type: application
+    urls:
+    - front-chart-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-05-28T16:56:52.8523816+02:00"
