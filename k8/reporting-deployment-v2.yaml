@@ -17,10 +17,4 @@ spec:
           image: {{ .Values.reporting_deployment.image}}:{{ .Values.reporting_deployment.tag}}
           ports:
             - containerPort: {{ .Values.reporting_deployment.containerPort}}
-          livenessProbe:
-            exec:
-              command:
-              - exit $(test $(date +%H) -eq 3 && echo 1 || echo 0)
-            failureThreshold: 1
-            initialDelaySeconds: 3600
-            periodSeconds: 60
+        

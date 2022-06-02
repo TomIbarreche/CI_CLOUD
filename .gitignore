@@ -1,3 +1,9 @@
 *.crt
 *.csr
 *.key
+
+./helm/temp/*
+
+./test
+
+./app

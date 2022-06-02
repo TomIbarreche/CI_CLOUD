@@ -4,6 +4,9 @@ reporting_deployment:
   name: "reporting"
   replicasNb: 1
   containerPort: 8080
+  schedule: "*/5 * * * *" #turn to 0 0 * * * for daily midnight deployment
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 0
 
 reporting_service:
   name: "reporting-cluster-ip-service"

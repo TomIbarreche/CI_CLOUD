@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  creationTimestamp: null
+  name: {{ .Values.reporting_deployment.name}}
+spec:
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+      name: {{ .Values.reporting_deployment.name}}
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          containers:
+          - image: {{ .Values.reporting_deployment.image}}:{{ .Values.reporting_deployment.tag}}
+            imagePullPolicy: IfNotPresent
+            name: {{ .Values.reporting_deployment.name}}
+            resources: {}
+          restartPolicy: OnFailure
+  schedule: "{{ .Values.reporting_deployment.schedule}}"
+  successfulJobsHistoryLimit: {{ .Values.reporting_deployment.successfulJobsHistoryLimit}}
+  failedJobsHistoryLimit: {{ .Values.reporting_deployment.failedJobsHistoryLimit}}
+status: {}
