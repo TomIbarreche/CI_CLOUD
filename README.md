@@ -45,7 +45,7 @@ helm upgrade --install loki loki/loki-stack -n=monitoring
 ### Installation du service ingress:
 
 ```bash
-kubectl apply -f .\helm\ready\ingress\ingress.yaml 
+kubectl apply -f .\helm\ready\ingress\ingress.yaml
 kubectl apply -f .\helm\ready\ingress\ingress-service.yaml -n=devops
 ```
 
@@ -86,9 +86,14 @@ helm install indexer indexer-application/indexer-chart -n=devops
 
 helm repo add reporting-application https://tomibarreche.github.io/reporting-application/
 helm install reporting reporting-application/reporting-chart -n=devops
-``` 
+```
 
 ### L’application est accessible à l’adresse [localhost:80](http://localhost:80) (si k8 tourne avec un autre moteur que minikube)
+### Si minikube
+```bash
+minikube tunnel
+kubectl get svc -n=ingress-nginx # accessible depuis l'EXTERNAL-IP
+```
 
 ### Désinstallation des charts:
 
