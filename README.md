@@ -31,8 +31,8 @@ helm install prometheus prometheus-community/kube-prometheus-stack --set prometh
 ### L'application grafana est accessbile de la manière suivante:
 ```bash
 kubectl get pod
-#Copier le nom du pod prometheus-graphana
-kubectl port-forward <nom du pod prometheus-graphana> 3000 -n=monitoring
+#Copier le nom du pod prometheus-grafana
+kubectl port-forward <nom du pod prometheus-grafana> 3000 -n=monitoring
 #Se rendre sur localhost:3000
 ```
 
@@ -89,10 +89,10 @@ helm install reporting reporting-application/reporting-chart -n=devops
 ```
 
 ### L’application est accessible à l’adresse [localhost:80](http://localhost:80) (si k8 tourne avec un autre moteur que minikube)
-### Si minikube
+### Si minikube, il faut récupérer l'url locale pour pouvoir y accéder
 ```bash
-minikube tunnel
-kubectl get svc -n=ingress-nginx # accessible depuis l'EXTERNAL-IP
+# liste les url locale d'accès au front et au back - la #1 est souvent celle du front, sinon tester la #2
+minikube service ingress-nginx-controller --url -n=ingress-nginx
 ```
 
 ### Désinstallation des charts:
