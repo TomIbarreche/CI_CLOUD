@@ -1,6 +1,6 @@
 apiVersion: v2
-name: elastic
-description: A Helm chart for Kubernetes
+name: elasticsearch-chart
+description: Helm chart utilisée pour déployer un serveur elastic search
 
 # A chart can be either an 'application' or a 'library' chart.
 #
