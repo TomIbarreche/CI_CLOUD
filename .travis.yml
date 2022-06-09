@@ -12,7 +12,7 @@ script:
 
 after_success:
   - docker build -t ibarreche/cloud-back-ci ./app/back
-  - docker build -t ibarreche/cloud-front-ci ./app/front
+  - docker build -t ibarreche/cloud-front-ci:coin ./app/front
   - docker build -t ibarreche/cloud-indexer-ci ./app/indexer
   - docker build -t ibarreche/cloud-nginx-ci ./app/nginx
   - docker build -t ibarreche/cloud-reporting-ci ./app/reporting
@@ -21,7 +21,7 @@ after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
   - docker push ibarreche/cloud-back-ci
-  - docker push ibarreche/cloud-front-ci
+  - docker push ibarreche/cloud-front-ci:coin
   - docker push ibarreche/cloud-indexer-ci
   - docker push ibarreche/cloud-nginx-ci
   - docker push ibarreche/cloud-reporting-ci

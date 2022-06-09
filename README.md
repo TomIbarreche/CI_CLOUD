@@ -14,10 +14,12 @@ kubectl create ns monitoring
 ```
 ### Création des roles
 ```bash
-kubectl apply -f .\rbac\role-manage.yaml
-kubectl apply -f .\rbac\role-monitoring.yaml
-kubectl apply -f .\rbac\rolebinding-manage.yaml
-kubectl apply -f .\rbac\rolebinging-monitoring.yaml
+#kubectl apply -f .\rbac\role-manage.yaml
+#kubectl apply -f .\rbac\role-monitoring.yaml
+#kubectl apply -f .\rbac\rolebinding-manage.yaml
+#kubectl apply -f .\rbac\rolebinging-monitoring.yaml
+helm repo add rbac https://tomibarreche.github.io/rbac/
+helm install rbac rbac/rbac-chart -ndevops
 ```
 
 ### Installation de prometheus:
@@ -45,7 +47,11 @@ helm upgrade --install loki loki/loki-stack -n=monitoring
 ### Installation du service ingress:
 
 ```bash
-kubectl apply -f .\helm\ready\ingress\ingress.yaml
+#kubectl apply -f .\helm\ready\ingress\ingress.yaml
+helm upgrade --install ingress-nginx ingress-nginx \
+  --repo https://kubernetes.github.io/ingress-nginx \
+  --namespace ingress-nginx --create-namespace
+
 kubectl apply -f .\helm\ready\ingress\ingress-service.yaml -n=devops
 ```
 
@@ -54,6 +60,10 @@ kubectl apply -f .\helm\ready\ingress\ingress-service.yaml -n=devops
 kubectl config use-context devops
 ```
 
+### Installation du repo bitnami:
+```bash
+helm repo add bitnami https://charts.bitnami.com/bitnami
+```
 ### Installation de la chart elasticsearch:
 
 ```bash
@@ -64,12 +74,14 @@ helm install elasticsearch .\helm\ready\elastic\ -n=devops
 
 ```bash
 helm install mysql .\helm\ready\mysql\ -n=devops
+helm install mysql bitnami/mysql -f helm/ready/mysql/values.yaml -n=devops
 ```
 
 ### Installation de la chart rabbitmq
 
 ```bash
 helm install rabbitmq .\helm\ready\rabbitmq\ -n=devops
+helm install rabbitmq bitnami/rabbitmq -f helm/ready/rabbitmq/values.yaml -n=devops
 ```
 
 ### Installation des chart front, back, indexer et reporting
