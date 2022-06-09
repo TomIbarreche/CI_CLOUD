@@ -68,8 +68,8 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 
 ```bash
 #helm install elasticsearch .\helm\ready\elastic\ -n=devops
-helm repo add  https://tomibarreche.github.io/elasticsearch/
-helm install elasticsearch elasticsearch/elasticsearch-chart -n=devops
+helm repo add elasticsearch https://tomibarreche.github.io/elasticsearch/
+helm install elasticsearch my-elasticsearch/elasticsearch-chart -n=devops
 ```
 
 ### Installation de la chart mysql:
