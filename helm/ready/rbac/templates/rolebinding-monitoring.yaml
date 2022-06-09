@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .Values.role_binding_monitoring.name }}
+  namespace: {{ .Values.role_binding_monitoring.namespace }}
+subjects:
+- kind: User
+  name: {{ .Values.role_binding_monitoring.username }}
+  apiGroup: {{ .Values.role_binding_monitoring.apiGroup }}
+roleRef:
+  kind: Role
+  name: {{ .Values.role_binding_monitoring.name }}
+  apiGroup: {{ .Values.role_binding_monitoring.apiGroup }}

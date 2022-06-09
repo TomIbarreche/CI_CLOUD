@@ -1,0 +1,19 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: {{ .Values.role_monitoring.namespace}}
+  name: {{ .Values.role_monitoring.name}}
+rules:
+- apiGroups: [""]
+  resources: {{ .Values.role_monitoring.pod_resources}}
+  verbs: {{ .Values.role_monitoring.pod_verbs}}
+- apiGroups: {{ .Values.role_monitoring.deploy_api}}
+  resources: {{ .Values.role_monitoring.deploy_resources}}
+  verbs: {{ .Values.role_monitoring.deploy_verbs}}
+- apiGroups: {{ .Values.role_monitoring.customresources_api}}
+  resources: {{ .Values.role_monitoring.customresources_resources}}
+  verbs: {{ .Values.role_monitoring.customresources_verbs}}
+- apiGroups: {{ .Values.role_monitoring.policy_api}}
+  resources: {{ .Values.role_monitoring.policy_resources}}
+  verbs: {{ .Values.role_monitoring.policy_verbs}}
+  
