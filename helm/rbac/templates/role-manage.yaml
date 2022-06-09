@@ -1,0 +1,21 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: {{ .Values.role_manage.namespace}}
+  name: {{ .Values.role_manage.name}}
+rules:
+- apiGroups: [""]
+  resources: {{ .Values.role_manage.pod_resources}}
+  verbs: {{ .Values.role_manage.pod_verbs}}
+- apiGroups: {{ .Values.role_manage.deploy_api}}
+  resources: {{ .Values.role_manage.deploy_resources}}
+  verbs: {{ .Values.role_manage.deploy_verbs}}
+- apiGroups: {{ .Values.role_manage.role_api}}
+  resources: {{ .Values.role_manage.role_resources}}
+  verbs: {{ .Values.role_manage.role_verbs}}
+- apiGroups: {{ .Values.role_manage.ingress_api}}
+  resources: {{ .Values.role_manage.ingress_resources}}
+  verbs: {{ .Values.role_manage.ingress_verbs}}
+- apiGroups: {{ .Values.role_manage.cron_api}}
+  resources: {{ .Values.role_manage.cron_resources}}
+  verbs: {{ .Values.role_manage.cron_verbs}}

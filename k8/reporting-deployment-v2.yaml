@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.reporting_deployment.name}}
+spec:
+  replicas: {{ .Values.reporting_deployment.replicasNb}}
+  selector:
+    matchLabels:
+      component: {{ .Values.reporting_deployment.name}}
+  template:
+    metadata:
+      labels:
+        component: {{ .Values.reporting_deployment.name}}
+    spec:
+      containers:
+        - name: {{ .Values.reporting_deployment.name}}
+          image: {{ .Values.reporting_deployment.image}}:{{ .Values.reporting_deployment.tag}}
+          ports:
+            - containerPort: {{ .Values.reporting_deployment.containerPort}}
+        
