@@ -1,20 +1,57 @@
 role_manage:
   namespace: "devops"
   name: "manage-pods"
-  pod_resources: ["pods", "pods/exec", "pods/portforward", "services", "pods/log", "secrets", 'configmaps', "serviceaccounts", "endpoints", "events"]
-  pod_verbs: ["get", "watch", "list", "create"]
+  pod_resources:
+  - "pods"
+  - "pods/exec"
+  - "pods/portforward"
+  - "services"
+  - "pods/log"
+  - "secrets"
+  - "configmaps"
+  - "serviceaccounts"
+  - "endpoints"
+  - "events"
+  pod_verbs: 
+  - "get"
+  - "watch"
+  - "list"
+  - "create"
   deploy_api: ["apps"]
-  deploy_resources: ["deployments","statefulsets"]
-  deploy_verbs: ["get", "watch", "list", "create"]
+  deploy_resources: 
+  - "deployments"
+  - "statefulsets"
+  deploy_verbs: 
+  - "get"
+  - "watch"
+  - "list"
+  - "create"
   role_api: ["rbac.authorization.k8s.io"]
-  role_resources: ["roles", "rolebindings"]
-  role_verbs: ["get", "watch", "list", "create"]
+  role_resources: 
+  - "roles"
+  - "rolebindings"
+  role_verbs: 
+  - "get"
+  - "watch"
+  - "list"
+  - "create"
   ingress_api: ["networking.k8s.io"]
-  ingress_resources: ["ingresses"]
-  ingress_verbs: ["get", "watch", "list", "create"]
+  ingress_resources:
+  - "ingresses"
+  ingress_verbs: 
+  - "get"
+  - "watch"
+  - "list"
+  - "create"
   cron_api: ["batch"]
-  cron_resources: ["cronjobs"]
-  cron_verbs: ["get", "watch", "list", "create", "delete"]
+  cron_resources: 
+  - "cronjobs"
+  cron_verbs: 
+  - "get"
+  - "watch"
+  - "list"
+  - "create"
+  - "delete"
 
 role_binding_manage:
   namespace: "devops"
@@ -25,17 +62,47 @@ role_binding_manage:
 role_monitoring:
   namespace: "monitoring"
   name: "monitor-pods"
-  pod_resources: ["pods", "pods/exec", "pods/portforward", "services", "pods/log", "secrets", 'configmaps', "serviceaccounts", "endpoints", "events"]
-  pod_verbs: ["get", "watch", "list", "create"]
+  pod_resources: 
+  - "pods"
+  - "pods/exec"
+  - "pods/portforward"
+  - "services"
+  - "pods/log"
+  - "secrets"
+  - "configmaps"
+  - "serviceaccounts"
+  - "endpoints"
+  - "events"
+  pod_verbs:
+  - "get"
+  - "watch"
+  - "list"
+  - "create"
   deploy_api: ["apps"]
-  deploy_resources: ["deployments","statefulsets"]
-  deploy_verbs: ["get", "watch", "list", "create"]
+  deploy_resources: 
+  - "deployments"
+  - "statefulsets"
+  deploy_verbs: 
+  - "get"
+  - "watch"
+  - "list"
+  - "create"
   customresources_api: ["apiextensions.k8s.io"]
-  customresources_resources: ["customresourcedefinitions"]
-  customresources_verbs: ["get", "watch", "list", "create"]
+  customresources_resources: 
+  - "customresourcedefinitions"
+  customresources_verbs:
+  - "get"
+  - "watch"
+  - "list"
+  - "create"
   policy_api: ["policy"]
-  policy_resources: ["podsecuritypolicies"]
-  policy_verbs: ["get", "watch", "list", "create"]
+  policy_resources: 
+  - "podsecuritypolicies"
+  policy_verbs:
+  - "get"
+  - "watch"
+  - "list"
+  - "create"
 
 role_binding_monitoring:
   namespace: "monitoring"

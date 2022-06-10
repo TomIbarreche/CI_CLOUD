@@ -5,17 +5,47 @@ metadata:
   name: {{ .Values.role_manage.name}}
 rules:
 - apiGroups: [""]
-  resources: {{ .Values.role_manage.pod_resources}}
-  verbs: {{ .Values.role_manage.pod_verbs}}
+  resources:
+    {{- range .Values.role_manage.pod_resources }}
+      - {{ . | quote }}
+    {{- end }}   
+  verbs: 
+    {{- range .Values.role_manage.pod_verbs }}
+      - {{ . | quote }}
+    {{- end }}
 - apiGroups: {{ .Values.role_manage.deploy_api}}
-  resources: {{ .Values.role_manage.deploy_resources}}
-  verbs: {{ .Values.role_manage.deploy_verbs}}
+  resources:
+    {{- range .Values.role_manage.deploy_resources }}
+      - {{ . | quote }}
+    {{- end }}
+  verbs:
+    {{- range .Values.role_manage.deploy_verbs }}
+      - {{ . | quote }}
+    {{- end }}
 - apiGroups: {{ .Values.role_manage.role_api}}
-  resources: {{ .Values.role_manage.role_resources}}
-  verbs: {{ .Values.role_manage.role_verbs}}
+  resources:
+    {{- range .Values.role_manage.role_resources }}
+      - {{ . | quote }}
+    {{- end }}
+  verbs:
+    {{- range .Values.role_manage.role_verbs }}
+      - {{ . | quote }}
+    {{- end }}
 - apiGroups: {{ .Values.role_manage.ingress_api}}
-  resources: {{ .Values.role_manage.ingress_resources}}
-  verbs: {{ .Values.role_manage.ingress_verbs}}
+  resources:
+    {{- range .Values.role_manage.ingress_resources }}
+      - {{ . | quote }}
+    {{- end }}
+  verbs:
+    {{- range .Values.role_manage.ingress_verbs }}
+      - {{ . | quote }}
+    {{- end }}
 - apiGroups: {{ .Values.role_manage.cron_api}}
-  resources: {{ .Values.role_manage.cron_resources}}
-  verbs: {{ .Values.role_manage.cron_verbs}}
+  resources:
+    {{- range .Values.role_manage.cron_resources }}
+      - {{ . | quote }}
+    {{- end }}
+  verbs:
+    {{- range .Values.role_manage.cron_verbs }}
+      - {{ . | quote }}
+    {{- end }}

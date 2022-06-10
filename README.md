@@ -52,7 +52,7 @@ helm upgrade --install ingress-nginx ingress-nginx \
   --repo https://kubernetes.github.io/ingress-nginx \
   --namespace ingress-nginx --create-namespace
 
-kubectl apply -f .\helm\ready\ingress\ingress-service.yaml -n=devops
+kubectl apply -f .\helm\ingress\ingress-service.yaml -n=devops
 ```
 
 ## Installation avec le rôle devops
@@ -68,22 +68,22 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 
 ```bash
 #helm install elasticsearch .\helm\ready\elastic\ -n=devops
-helm repo add elasticsearch https://tomibarreche.github.io/elasticsearch/
+helm repo add my-elasticsearch https://tomibarreche.github.io/elasticsearch/
 helm install elasticsearch my-elasticsearch/elasticsearch-chart -n=devops
 ```
 
 ### Installation de la chart mysql:
 
 ```bash
-helm install mysql .\helm\ready\mysql\ -n=devops
-helm install mysql bitnami/mysql -f helm/ready/mysql/values.yaml -n=devops
+#helm install mysql .\helm\ready\mysql\ -n=devops
+helm install mysql bitnami/mysql -f helm/mysql/values.yaml -n=devops
 ```
 
 ### Installation de la chart rabbitmq
 
 ```bash
 helm install rabbitmq .\helm\ready\rabbitmq\ -n=devops
-helm install rabbitmq bitnami/rabbitmq -f helm/ready/rabbitmq/values.yaml -n=devops
+helm install rabbitmq bitnami/rabbitmq -f helm/rabbitmq/values.yaml -n=devops
 ```
 
 ### Installation des chart front, back, indexer et reporting

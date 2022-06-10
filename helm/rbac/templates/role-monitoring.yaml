@@ -5,15 +5,39 @@ metadata:
   name: {{ .Values.role_monitoring.name}}
 rules:
 - apiGroups: [""]
-  resources: {{ .Values.role_monitoring.pod_resources}}
-  verbs: {{ .Values.role_monitoring.pod_verbs}}
+  resources:
+    {{- range .Values.role_monitoring.pod_resources }}
+      - {{ . | quote }}
+    {{- end }}  
+  verbs:
+    {{- range .Values.role_monitoring.pod_verbs }}
+      - {{ . | quote }}
+    {{- end }} 
 - apiGroups: {{ .Values.role_monitoring.deploy_api}}
-  resources: {{ .Values.role_monitoring.deploy_resources}}
-  verbs: {{ .Values.role_monitoring.deploy_verbs}}
+  resources:
+    {{- range .Values.role_monitoring.deploy_resources }}
+      - {{ . | quote }}
+    {{- end }} 
+  verbs:
+    {{- range .Values.role_monitoring.deploy_verbs }}
+      - {{ . | quote }}
+    {{- end }} 
 - apiGroups: {{ .Values.role_monitoring.customresources_api}}
-  resources: {{ .Values.role_monitoring.customresources_resources}}
-  verbs: {{ .Values.role_monitoring.customresources_verbs}}
+  resources:
+    {{- range .Values.role_monitoring.customresources_resources }}
+      - {{ . | quote }}
+    {{- end }} 
+  verbs: 
+    {{- range .Values.role_monitoring.customresources_verbs }}
+      - {{ . | quote }}
+    {{- end }} 
 - apiGroups: {{ .Values.role_monitoring.policy_api}}
-  resources: {{ .Values.role_monitoring.policy_resources}}
-  verbs: {{ .Values.role_monitoring.policy_verbs}}
+  resources: 
+    {{- range .Values.role_monitoring.policy_resources }}
+      - {{ . | quote }}
+    {{- end }} 
+  verbs: 
+    {{- range .Values.role_monitoring.policy_verbs }}
+      - {{ . | quote }}
+    {{- end }} 
   
